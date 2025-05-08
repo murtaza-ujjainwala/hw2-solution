@@ -25,6 +25,7 @@ public class ExpenseTrackerController {
   public ExpenseTrackerController(ExpenseTrackerModel model, ExpenseTrackerView view) {
     this.model = model;
     this.view = view;
+    view.addRemoveTransactionListener(e -> removeRow());
   }
 
   public void setFilter(TransactionFilter filter) {
@@ -65,6 +66,16 @@ public class ExpenseTrackerController {
       filteredTransactions = filter.filter(transactions);
     }
     view.displayFilteredTransactions(filteredTransactions);
+  }
+
+  private void removeRow() {
+    int selectedRow = view.getTransactionsTable().getSelectedRow();
+
+    if (selectedRow >= 0 && selectedRow < view.getDisplayedTransactions().size()) {
+      Transaction t = view.getDisplayedTransactions().get(selectedRow);
+      model.removeTransaction(t);
+      refresh();
+    }
   }
     
 }

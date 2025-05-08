@@ -4,6 +4,7 @@ import model.ExpenseTrackerModel;
 import view.ExpenseTrackerView;
 import model.Filter.AmountFilter;
 import model.Filter.CategoryFilter;
+import model.Transaction;
 
 public class ExpenseTrackerApp {
 
@@ -75,5 +76,13 @@ public class ExpenseTrackerApp {
      controller.applyFilter();
    });
     
+   view.getRemoveTransactionsBtn().addActionListener(e -> {
+    int selectedRow = view.getTransactionsTable().getSelectedRow();
+
+    if (selectedRow >= 0 && selectedRow < view.getDisplayedTransactions().size()) {
+      model.removeTransaction(view.getDisplayedTransactions().get(selectedRow));
+      controller.refresh();
+    }
+   });
   }
 }

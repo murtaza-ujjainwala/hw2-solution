@@ -12,7 +12,7 @@ import model.Transaction;
 public class ExpenseTrackerView extends JFrame {
 
   private JTable transactionsTable;
-  private JButton addTransactionBtn;
+  private JButton addTransactionBtn, removeTransactionBtn;
   private JFormattedTextField amountField;
   private JTextField categoryField;
   private DefaultTableModel model;
@@ -29,13 +29,14 @@ public class ExpenseTrackerView extends JFrame {
 
   public ExpenseTrackerView() {
     setTitle("Expense Tracker");
-    setSize(600, 400);
+    setSize(1000, 400);
 
     String[] columnNames = {"serial", "Amount", "Category", "Date"};
     this.model = new DefaultTableModel(columnNames, 0);
 
     transactionsTable = new JTable(model);
     addTransactionBtn = new JButton("Add Transaction");
+    removeTransactionBtn = new JButton("Remove Transaction");
 
     JLabel amountLabel = new JLabel("Amount:");
     NumberFormat format = NumberFormat.getNumberInstance();
@@ -61,6 +62,7 @@ public class ExpenseTrackerView extends JFrame {
     inputPanel.add(categoryLabel); 
     inputPanel.add(categoryField);
     inputPanel.add(addTransactionBtn);
+    inputPanel.add(removeTransactionBtn);
 
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(amountFilterBtn);
@@ -127,6 +129,10 @@ public class ExpenseTrackerView extends JFrame {
   public void addClearFilterListener(ActionListener listener) {
     clearFilterBtn.addActionListener(listener);
   }
+
+  public void addRemoveTransactionListener(ActionListener listener) {
+    removeTransactionBtn.addActionListener(listener);
+  }
     
   public void refreshTable(List<Transaction> transactions) {
     model.setRowCount(0);
@@ -149,6 +155,10 @@ public class ExpenseTrackerView extends JFrame {
 
   public JButton getAddTransactionBtn() {
     return addTransactionBtn;
+  }
+
+  public JButton getRemoveTransactionsBtn() {
+    return removeTransactionBtn;
   }
 
   public void displayFilteredTransactions(List<Transaction> filteredTransactions) {
