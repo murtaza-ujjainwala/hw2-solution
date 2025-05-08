@@ -119,9 +119,19 @@ public class TestExample {
         double totalCost = getTotalCost();
         assertEquals(0.00, totalCost, 0.01);
     }
-    
 
-        
+    @Test
+    public void testRemoveInvalidTransaction() {
+        assertEquals(0, model.getTransactions().size());
+        double amount = 50.0;
+        String category = CATEGORY_FOOD;
+        Transaction t = new Transaction(amount, category);
+        model.removeTransaction(t);
+        assertEquals(0, model.getTransactions().size());
+        double totalCost = getTotalCost();
+        assertEquals(0.00, totalCost, 0.01);
+    }
+
     @Test
     public void testInvalidInputHandling() {
 	// This is new test case 2: For the Controller
